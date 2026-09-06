@@ -13,6 +13,7 @@ export default function RouteMap() {
     originY: 0,
     moved: false,
   })
+  const suppressClick = useRef(false)
 
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
@@ -33,6 +34,7 @@ export default function RouteMap() {
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return
 
+    suppressClick.current = false
     drag.current = {
       pointerId: event.pointerId,
       startX: event.clientX,
@@ -41,7 +43,6 @@ export default function RouteMap() {
       originY: position.y,
       moved: false,
     }
-    event.currentTarget.setPointerCapture(event.pointerId)
   }
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -50,32 +51,49 @@ export default function RouteMap() {
     const deltaX = event.clientX - drag.current.startX
     const deltaY = event.clientY - drag.current.startY
     if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
-      drag.current.moved = true
+      if (!drag.current.moved) {
+        drag.current.moved = true
+        const viewportElement = viewport.current
+        if (viewportElement && !viewportElement.hasPointerCapture(event.pointerId)) {
+          viewportElement.setPointerCapture(event.pointerId)
+        }
+      }
     }
 
-    setPosition(
-      clampPosition(
-        drag.current.originX + deltaX,
-        drag.current.originY + deltaY,
-      ),
-    )
+    if (drag.current.moved) {
+      setPosition(
+        clampPosition(
+          drag.current.originX + deltaX,
+          drag.current.originY + deltaY,
+        ),
+      )
+    }
   }
 
   const handlePointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerId !== drag.current.pointerId) return
 
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId)
+    if (drag.current.moved) {
+      suppressClick.current = true
     }
-    drag.current.pointerId = -1
+
+    const viewportElement = viewport.current
+    if (viewportElement && viewportElement.hasPointerCapture(event.pointerId)) {
+      viewportElement.releasePointerCapture(event.pointerId)
+    }
+    drag.current = {
+      ...drag.current,
+      pointerId: -1,
+      moved: false,
+    }
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (drag.current.moved) {
-      event.preventDefault()
-      event.stopPropagation()
-      drag.current.moved = false
-    }
+  const handleClickCapture = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!suppressClick.current) return
+
+    event.preventDefault()
+    event.stopPropagation()
+    suppressClick.current = false
   }
 
   return (
@@ -86,7 +104,7 @@ export default function RouteMap() {
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
-      onClick={handleClick}
+      onClickCapture={handleClickCapture}
     >
       <div
         className="absolute left-1/2 top-1/2 will-change-transform overflow-hidden"
