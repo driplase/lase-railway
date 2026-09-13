@@ -54,13 +54,13 @@ export default function RouteMapSVG({
               <Link
                 href={`/stations/${station.id}`} 
                 key={station.id} 
-                className="hover:fill-blue-700"
+                className="group"
               >
                 <g 
                   transform={`translate(${station.position[0] * sizeMultiplier} ${station.position[1] * sizeMultiplier})`}
                 >
-                  <circle r={4} fill="#fafcff" stroke="#256cfa" />
-                  <text x={10} y={-7} fill="var(--foreground)" fontWeight={500}>{ station.name }</text>
+                  <circle r={4} fill="#fafcff" className="group-hover:fill-[#80b0ff]" /* stroke="#256cfa" */ />
+                  <text x={10} y={-7} fill="var(--foreground)" fontWeight={500} className="group-hover:fill-[#256fe6]">{ station.name }</text>
                 </g>
               </Link>
             )

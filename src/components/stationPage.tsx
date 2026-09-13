@@ -5,7 +5,7 @@ export function StationPanel({
 }: {
   name: string,
   nameRomanized?: string,
-  trainNumber?: string,
+  trainNumber?: string[],
 }) {
   return (
     <div className="grid justify-items-center my-2">
@@ -28,7 +28,7 @@ export default function StationPage({
   children?: React.ReactNode,
   name: string,
   nameRomanized?: string,
-  trainNumber?: string,
+  trainNumber?: string[],
 }) {
   return (
     <main className="w-4xl max-w-full mx-auto p-8 text-center">

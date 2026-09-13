@@ -55,18 +55,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </Link>
 
           <nav className="flex gap-6 items-center">
-            <Link href="/stations">
-              駅一覧・路線図
-            </Link>
-            <Link href="/visiting">
-              観光案内
-            </Link>
-            <Link href="/history">
-              歴史
-            </Link>
-            <Link href="/recruit">
-              求人情報
-            </Link>
+            {[
+              { name: "駅一覧・路線図", url: "/stations" },
+              // { name: "観光案内", url: "/visiting" },
+              // { name: "歴史", url: "/history" },
+              // { name: "求人情報", url: "/recruit" },
+            ].map((item, idx) => (
+              <Link key={idx} className="hover:underline" href={item.url}>
+                { item.name }
+              </Link>
+            ))}
           </nav>
         </header>
 

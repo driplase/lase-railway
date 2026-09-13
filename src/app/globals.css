@@ -51,7 +51,7 @@
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(36.534% 0.00684 285.975);
+  --foreground: oklch(33.792% 0.00523 286.016);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
@@ -148,6 +148,10 @@ h2 {
 h3 {
   font-size: 1.2em;
   font-weight: 700;
+}
+
+p {
+  margin-block: .75em;
 }
 
 ul {
