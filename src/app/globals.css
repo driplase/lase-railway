@@ -8,7 +8,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-noto-sans), var(--font-m-plus-1p);
+  --font-sans: var(--font-noto-sans), var(--font-m-plus-2);
   --font-mono: var(--font-ubuntu-sans-mono), var(--font-m-plus-1-code);
   --font-heading: var(--font-montserrat), var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -51,7 +51,7 @@
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(19.306% 0.00802 285.593);
+  --foreground: oklch(36.534% 0.00684 285.975);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);

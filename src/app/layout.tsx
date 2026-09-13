@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { M_PLUS_1p, M_PLUS_1_Code, Noto_Sans, Montserrat, Ubuntu_Sans_Mono } from "next/font/google";
+import { M_PLUS_2, M_PLUS_1_Code, Noto_Sans, Montserrat, Ubuntu_Sans_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Image from 'next/image'
@@ -21,9 +21,8 @@ const ubuntuSansMono = Ubuntu_Sans_Mono({
   subsets: ["latin"],
 });
 
-const mPlus1p = M_PLUS_1p({
-  variable: "--font-m-plus-1p",
-  weight: ["400", "700"],
+const mPlus2 = M_PLUS_2({
+  variable: "--font-m-plus-2",
   subsets: ["latin"],
 });
 
@@ -41,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", mPlus1p.variable, mPlus1Code.variable, ubuntuSansMono.variable, "font-sans", notoSans.variable, montserrat.variable)}
+      className={cn("h-full", "antialiased", mPlus2.variable, mPlus1Code.variable, ubuntuSansMono.variable, "font-sans", notoSans.variable, montserrat.variable)}
     >
       <body className="min-h-full flex flex-col">
         <header className="w-full px-8 py-4 border border-red-500 flex justify-between">

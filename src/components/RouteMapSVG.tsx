@@ -60,7 +60,7 @@ export default function RouteMapSVG({
                   transform={`translate(${station.position[0] * sizeMultiplier} ${station.position[1] * sizeMultiplier})`}
                 >
                   <circle r={4} fill="#fafcff" stroke="#256cfa" />
-                  <text x={10} y={-7}>{ station.name }</text>
+                  <text x={10} y={-7} fill="var(--foreground)" fontWeight={500}>{ station.name }</text>
                 </g>
               </Link>
             )
