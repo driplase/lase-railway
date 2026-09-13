@@ -1,6 +1,7 @@
 import { stations, lines, type Line } from "@/data/stations";
 import { cn } from '@/lib/utils'
 import Link from "next/link";
+import { CSSProperties } from "react";
 
 interface MapLine extends Line {
   points: string;
@@ -11,7 +12,11 @@ const offset = [300, 0]
 export const width = 500
 export const height = 750
 
-export default function RouteMapSVG() {
+export default function RouteMapSVG({
+  style,
+}: {
+  style?: CSSProperties,
+}) {
   const mapLines: MapLine[] = lines.map(line => {
     const lineStations = line.stationIds.map(stationId => stations.find(station => station.trainNumber.includes(stationId)))
     
@@ -25,6 +30,7 @@ export default function RouteMapSVG() {
     <svg
       xmlns="http://www.w3.org/2000/svg" 
       width={width} height={height}
+      style={style}
       // className="border border-amber-300"
     >
       <g transform={`translate(${offset.join(' ')})`}>

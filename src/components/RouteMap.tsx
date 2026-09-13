@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import RouteMapSVG, { height, width } from "./RouteMapSVG";
 
 export default function RouteMap() {
@@ -15,20 +15,51 @@ export default function RouteMap() {
   })
   const suppressClick = useRef(false)
 
-  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [position, setPosition] = useState({
+    x: 0, 
+    y: 0,
+    zoom: 1,
+  })
 
-  const clampPosition = (x: number, y: number) => {
+  const clampPosition = (x: number, y: number, zoom: number) => {
     const viewportElement = viewport.current
     if (!viewportElement) return { x, y }
 
     const { clientWidth, clientHeight } = viewportElement
-    const horizontalLimit = Math.max(width / 2, (width - clientWidth) / 2)
-    const verticalLimit = Math.max(height / 2, (height - clientHeight) / 2)
+    const scaledWidth = width * zoom
+    const scaledHeight = height * zoom
+    const horizontalLimit = Math.max(scaledWidth / 2, (scaledWidth - clientWidth) / 2)
+    const verticalLimit = Math.max(scaledHeight / 2, (scaledHeight - clientHeight) / 2)
 
     return {
       x: Math.min(horizontalLimit, Math.max(-horizontalLimit, x)),
       y: Math.min(verticalLimit, Math.max(-verticalLimit, y)),
     }
+  }
+
+  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    const ZOOM_SPEED = 1.0025
+
+    // event.preventDefault()
+
+    const viewportElement = viewport.current
+    if (!viewportElement) return
+
+    const nextZoom = Math.min(5, Math.max(.5, position.zoom * Math.pow(ZOOM_SPEED, -event.deltaY)))
+
+    const zoomRatio = nextZoom / position.zoom
+
+    const cursorX = event.clientX - viewportElement.getBoundingClientRect().left - viewportElement.clientWidth / 2
+    const cursorY = event.clientY - viewportElement.getBoundingClientRect().top - viewportElement.clientHeight / 2
+    
+    setPosition({
+      zoom: nextZoom,
+      ...clampPosition(
+        cursorX - (cursorX - position.x) * (zoomRatio),
+        cursorY - (cursorY - position.y) * (zoomRatio),
+        nextZoom,
+      ),
+    })
   }
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -61,12 +92,14 @@ export default function RouteMap() {
     }
 
     if (drag.current.moved) {
-      setPosition(
-        clampPosition(
+      setPosition((currentPosition) => ({
+        ...currentPosition,
+        ...clampPosition(
           drag.current.originX + deltaX,
           drag.current.originY + deltaY,
+          currentPosition.zoom,
         ),
-      )
+      }))
     }
   }
 
@@ -99,20 +132,22 @@ export default function RouteMap() {
   return (
     <div
       ref={viewport}
-      className="border border-slate-400 w-full h-128 rounded-md overflow-hidden touch-none cursor-grab active:cursor-grabbing select-none relative"
+      className="border border-slate-400 w-full h-128 rounded-md overflow-hidden overscroll-none touch-none cursor-grab active:cursor-grabbing select-none relative"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
+      onWheelCapture={handleWheel}
       onClickCapture={handleClickCapture}
     >
       <div
-        className="absolute left-1/2 top-1/2 will-change-transform overflow-hidden"
-        style={{
-          transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px))`,
-        }}
+        className="absolute inset-0 flex justify-center items-center"
       >
-        <RouteMapSVG />
+        <RouteMapSVG
+          style={{
+            transform: `translate(calc(${position.x}px), calc(${position.y}px)) scale(${position.zoom})`,
+          }}
+        />
       </div>
     </div>
   )
