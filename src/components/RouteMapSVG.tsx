@@ -18,7 +18,7 @@ export default function RouteMapSVG({
   style?: CSSProperties,
 }) {
   const mapLines: MapLine[] = lines.map(line => {
-    const lineStations = line.stationIds.map(stationId => stations.find(station => station.trainNumber.includes(stationId)))
+    const lineStations = line.stationIds.map(stationId => stations.find(station => station.stationNumber.includes(stationId)))
     
     return {
       ...line,

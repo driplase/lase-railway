@@ -18,7 +18,7 @@ export default async function Page({
     <StationPage 
       name={station.name}
       nameRomanized={station.nameRomanized}
-      trainNumber={station.trainNumber}
+      stationNumber={station.stationNumber}
     >
       <Post />
     </StationPage>
