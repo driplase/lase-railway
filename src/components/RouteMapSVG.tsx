@@ -43,6 +43,7 @@ export default function RouteMapSVG({
                 points={line.points}
                 stroke={line.color}
                 fill="transparent"
+                strokeLinecap="round"
               />
             );
           }) }
@@ -58,7 +59,7 @@ export default function RouteMapSVG({
                 <g 
                   transform={`translate(${station.position[0] * sizeMultiplier} ${station.position[1] * sizeMultiplier})`}
                 >
-                  <circle r={5} fill="#fafcff" stroke="#256cfa" />
+                  <circle r={4} fill="#fafcff" stroke="#256cfa" />
                   <text x={10} y={-7}>{ station.name }</text>
                 </g>
               </Link>
