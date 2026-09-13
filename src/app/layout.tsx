@@ -43,7 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={cn("h-full", "antialiased", mPlus2.variable, mPlus1Code.variable, ubuntuSansMono.variable, "font-sans", notoSans.variable, montserrat.variable)}
     >
       <body className="min-h-full flex flex-col">
-        <header className="w-full px-8 py-4 border border-red-500 flex justify-between">
+        <header className="w-full px-8 py-4 flex justify-between shadow-xl shadow-gray-500/12">
           {/* Logo */}
           <Link href="/">
             <Image
