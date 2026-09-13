@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -8,7 +9,9 @@ export default function Home() {
         【泥急とは？】
       </h2>
       <p>
-        どろぷす急行電鉄は、中央スポーン（ScJP中央駅）から南、東への路線を運行しています。
+        どろぷす急行電鉄は、中央スポーン（ScJP中央駅）から南、東への路線を運行している、
+        <Link href="https://mcscr.jp">ScJPMC</Link>
+        内で運営されている鉄道です。
       </p>
       <p>
         driplaseの出資の元、路線拡大が行われています。
