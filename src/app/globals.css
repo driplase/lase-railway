@@ -179,6 +179,10 @@ li > p, li > ul, li > ol {
   margin-block-start: 0.5em;
 }
 
+a {
+  color: revert;
+}
+
 .typeset-docs {
   --typeset-font-body: var(--font-geist);
   --typeset-font-heading: var(--font-geist);

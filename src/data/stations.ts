@@ -2,6 +2,7 @@ export interface Station {
   id: string;
   trainNumber: string[];
   name: string;
+  nameHiragana?: string;
   nameRomanized?: string;
   position: [number, number];
 }
@@ -16,12 +17,11 @@ export interface Line {
 export const stations: Station[] = [
   { id: "scjp-chuo", trainNumber: ["DR01", "DP01"], name: "ScJP中央", nameRomanized: "ScJP-chuo", position: [-159, 56] },
   { id: "roten-mae", trainNumber: ["DR02", "DP02"], name: "露天前", nameRomanized: "Roten-mae", position: [-148, 248] },
-  { id: "scjp-minamino", trainNumber: ["DR03"], name: "ScJPみなみ野", nameRomanized: "ScJP-minamino", position: [-153, 590] },
-  { id: "fujido", trainNumber: ["DR04"], name: "藤堂", nameRomanized: "Fujido", position: [-100, 689] },
-  { id: "saimyo", trainNumber: ["DR05"], name: "祭明", nameRomanized: "Saimyo", position: [0, 867] },
-  { id: "yurizono", trainNumber: ["DR06"], name: "百合園", nameRomanized: "Yurizono", position: [0, 1041] },
-  { id: "yuno-onsen", trainNumber: ["DR07"], name: "湯野温泉", nameRomanized: "Yuno-onsen", position: [0, 1246] },
-  { id: "lase-chuo", trainNumber: ["DR08"], name: "lase中央", nameRomanized: "lase-chuo", position: [0, 1435] },
+  { id: "takakanagawa-gateway-shin-rampo-seinan-kosho-rakka-kiki-ana-toshi-chiiki", trainNumber: ["DR03"], name: "高神奈川ゲートウェイ〈新乱歩西南高所落下危機穴都市地域〉", nameHiragana: "たかかながわげーとうぇい〈しんらんぽせいなんこうしょらっかききあなとしちいき〉", nameRomanized: "Takakanagawa Gateway <Shin-rampo Seinan Kosho Rakka Kiki Ana Toshi Chiiki>", position: [-153, 632] },
+  { id: "saimyo", trainNumber: ["DR04"], name: "祭明", nameRomanized: "Saimyo", position: [0, 867] },
+  { id: "yurizono", trainNumber: ["DR05"], name: "百合園", nameRomanized: "Yurizono", position: [0, 1041] },
+  { id: "yuno-onsen", trainNumber: ["DR06"], name: "湯野温泉", nameRomanized: "Yuno-onsen", position: [0, 1246] },
+  { id: "lase-chuo", trainNumber: ["DR07"], name: "lase中央", nameRomanized: "lase-chuo", position: [0, 1435] },
   { id: "shin-ranpo", trainNumber: ["DP03"], name: "新乱歩", nameRomanized: "Shin-ranpo", position: [37, 370] },
 ]
 
@@ -48,7 +48,6 @@ export const lines: Line[] = [
       "DR05",
       "DR06",
       "DR07",
-      "DR08",
     ],
   },
 ]

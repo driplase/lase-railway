@@ -9,7 +9,7 @@ export function StationPanel({
 }) {
   return (
     <div className="grid justify-items-center my-2">
-      <div className="w-lg min-h-64 max-w-full bg-white flex flex-col items-center justify-center">
+      <div className="w-xl min-h-64 max-w-full bg-white flex flex-col items-center justify-center px-8">
         <h1 className="mt-2! mb-4!">
           { name }
         </h1>
