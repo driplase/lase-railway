@@ -8,9 +8,9 @@ interface MapLine extends Line {
 }
 
 const sizeMultiplier = .5;
-const offset = [300, 0]
-export const width = 1000
-export const height = 750
+const offset = [200, 0]
+export const width = 2048
+export const height = 1500
 
 export default function RouteMapSVG({
   style,
@@ -50,19 +50,31 @@ export default function RouteMapSVG({
         </g>
         <g className="stations">
           { stations.map(station => {
-            return (
-              <Link
-                href={`/stations/${station.id}`} 
-                key={station.id} 
-                className="group"
+            const content = (
+              <g 
+                transform={`translate(${station.position[0] * sizeMultiplier} ${station.position[1] * sizeMultiplier})`}
               >
-                <g 
-                  transform={`translate(${station.position[0] * sizeMultiplier} ${station.position[1] * sizeMultiplier})`}
+                <circle r={4} fill="#fafcff" className="group-hover:fill-[#80b0ff]" /* stroke="#256cfa" */ />
+                <text x={10} y={-7} fill="var(--foreground)" fontWeight={500} className="group-hover:fill-[#256fe6]">{ station.name }</text>
+              </g>
+            )
+
+            if (typeof station.url === "string" || station.url === true) {
+              return (
+                <Link
+                  href={typeof station.url === "string" ? station.url : `/stations/${station.id}`}
+                  key={station.id}
+                  className="group"
                 >
-                  <circle r={4} fill="#fafcff" className="group-hover:fill-[#80b0ff]" /* stroke="#256cfa" */ />
-                  <text x={10} y={-7} fill="var(--foreground)" fontWeight={500} className="group-hover:fill-[#256fe6]">{ station.name }</text>
-                </g>
-              </Link>
+                  {content}
+                </Link>
+              )
+            }
+
+            return (
+              <g key={station.id} className="group">
+                {content}
+              </g>
             )
           }) }
         </g>
