@@ -31,10 +31,10 @@ export const stations: Station[] = [
   
   { id: "scjp-chuowan", stationNumber: ["IS01"], name: "ScJP中央湾", nameRomanized: "ScJP-chuowan", position: [-74, 27] },
   { id: "keikenchi-farm", stationNumber: ["IS02"], name: "経験値ファーム", nameRomanized: "Keikenchi Farm", position: [-74, 65] },
-  { id: "takakanagawa-gateway-shin-rampo-seinan-kosho-rakka-kiki-ana-toshi-chiiki", stationNumber: ["DR03"], name: "高神奈川ゲートウェイ〈新乱歩西南高所落下危機穴都市地域〉", nameHiragana: "たかかながわげーとうぇい〈しんらんぽせいなんこうしょらっかききあなとしちいき〉", nameRomanized: "Takakanagawa Gateway <Shin-rampo Seinan Kosho Rakka Kiki Ana Toshi Chiiki>", position: [-153, 632], url: true },
-  { id: "saimyo", stationNumber: ["DR04"], name: "祭明", nameRomanized: "Saimyo", position: [0, 867], url: true },
-  { id: "yurizono", stationNumber: ["DR05"], name: "百合園", nameRomanized: "Yurizono", position: [0, 1041], url: true },
-  { id: "yuno-onsen", stationNumber: ["DR06"], name: "湯野温泉", nameRomanized: "Yuno-onsen", position: [0, 1246], url: true },
+  { id: "kojogun", stationNumber: ["IS03"], name: "工場群", nameRomanized: "Kojogun", position: [-74, 158] },
+  { id: "kaiteishinden-mae", stationNumber: ["IS04"], name: "海底神殿前", nameRomanized: "Kaiteishinden-mae", position: [193, -244] },
+  { id: "yurizono", stationNumber: ["DR05"], name: "百合園", nameRomanized: "Yurizono", position: [0, 1041] },
+  { id: "yuno-onsen", stationNumber: ["DR06"], name: "湯野温泉", nameRomanized: "Yuno-onsen", position: [0, 1246] },
 ]
 
 export const lines: Line[] = [
