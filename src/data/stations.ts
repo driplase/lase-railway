@@ -28,6 +28,13 @@ export const stations: Station[] = [
 
   { id: "sushi-railway-mura", stationNumber: ["sushi-railway-mura"], name: "村", nameRomanized: "Mura", position: [859, 1658] },
   { id: "sushi-railway-portal", stationNumber: ["sushi-railway-portal"], name: "ポータル", nameRomanized: "Portal", position: [1117, 1590] },
+  
+  { id: "scjp-chuowan", stationNumber: ["IS01"], name: "ScJP中央湾", nameRomanized: "ScJP-chuowan", position: [-74, 27] },
+  { id: "keikenchi-farm", stationNumber: ["IS02"], name: "経験値ファーム", nameRomanized: "Keikenchi Farm", position: [-74, 65] },
+  { id: "takakanagawa-gateway-shin-rampo-seinan-kosho-rakka-kiki-ana-toshi-chiiki", stationNumber: ["DR03"], name: "高神奈川ゲートウェイ〈新乱歩西南高所落下危機穴都市地域〉", nameHiragana: "たかかながわげーとうぇい〈しんらんぽせいなんこうしょらっかききあなとしちいき〉", nameRomanized: "Takakanagawa Gateway <Shin-rampo Seinan Kosho Rakka Kiki Ana Toshi Chiiki>", position: [-153, 632], url: true },
+  { id: "saimyo", stationNumber: ["DR04"], name: "祭明", nameRomanized: "Saimyo", position: [0, 867], url: true },
+  { id: "yurizono", stationNumber: ["DR05"], name: "百合園", nameRomanized: "Yurizono", position: [0, 1041], url: true },
+  { id: "yuno-onsen", stationNumber: ["DR06"], name: "湯野温泉", nameRomanized: "Yuno-onsen", position: [0, 1246], url: true },
 ]
 
 export const lines: Line[] = [
