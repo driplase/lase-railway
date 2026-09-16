@@ -157,7 +157,7 @@ export default function RouteMap() {
   return (
     <div
       ref={viewport}
-      className="border border-slate-400 w-full h-128 rounded-md overflow-hidden overscroll-none touch-none cursor-grab active:cursor-grabbing select-none relative"
+      className="border border-slate-400 w-full h-full rounded-md overflow-hidden overscroll-none touch-none cursor-grab active:cursor-grabbing select-none relative"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
