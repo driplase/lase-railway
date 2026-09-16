@@ -1,15 +1,15 @@
 import { stations, lines, stationAppearance, type Line } from "@/data/stations";
 import { cn } from '@/lib/utils'
 import Link from "next/link";
-import { CSSProperties } from "react";
+import { CSSProperties, Fragment } from "react";
 
 interface MapLine extends Line {
   points: string;
 }
 
-const sizeMultiplier = .64;
-const offset = [-200, -320]
-export const width = 1000
+export const sizeMultiplier = .64;
+export const offset = [-1000, -320]
+export const width = 1800
 export const height = 1500
 
 export default function RouteMapSVG({
@@ -18,7 +18,41 @@ export default function RouteMapSVG({
   style?: CSSProperties,
 }) {
   const mapLines: MapLine[] = lines.map(line => {
-    const lineStations = line.stationNumbers.map(stationId => stations.find(station => station.stationNumber.includes(stationId)))
+    const lineStations = line.stationNumbers.map(stationId => {
+      const idx = stations.findIndex(station => station.stationNumber.includes(stationId))
+      const station = stations[idx]
+
+      if (!station) return null;
+
+      const z = station.stationNumber.sort((a, b) => 
+        lines.findIndex(l => l.stationNumbers.includes(b)) - lines.findIndex(l => l.stationNumbers.includes(a))
+      ).findIndex(n => n === stationId)
+
+      let delta = [0, 0];
+      
+      const previousStation = stations.find(station => station.stationNumber.includes(line.stationNumbers[idx - 1]));
+      const nextStation = stations.find(station => station.stationNumber.includes(line.stationNumbers[idx + 1]));
+
+      if (previousStation) {
+        delta = station.position.map((p, i) => p - previousStation.position[i])
+      } else if (nextStation) {
+        delta = station.position.map((p, i) => nextStation.position[i] - p)
+      }
+
+      const angle = Math.atan2(delta[1], delta[0])
+      const pointOffset = [
+        Math.cos(angle + Math.PI / 2) * z * 4,
+        Math.sin(angle + Math.PI / 2) * z * 4,
+      ]
+
+      return {
+        ...station,
+        position: [
+          station.position[0] + pointOffset[0],
+          station.position[1] + pointOffset[1],
+        ]
+      }
+    })
     
     return {
       ...line,
@@ -38,15 +72,27 @@ export default function RouteMapSVG({
         <g className="lines">
           { mapLines.map(line => {
             return (
-              <polyline
-                key={line.id}
-                className={cn(line.id, "stroke-12")}
-                points={line.points}
-                stroke={line.color}
-                fill="transparent"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <Fragment key={line.id}>
+                <polyline
+                  className={cn(line.id, "stroke-12")}
+                  points={line.points}
+                  stroke={line.color}
+                  fill="transparent"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+
+                { line.appearance?.label?.enabled && (
+                  <text
+                    x={line.appearance?.label.x}
+                    y={line.appearance?.label.y}
+                    fontWeight={600}
+                    fontSize={20}
+                  >
+                    <tspan fill={line.color}>【</tspan>{ line.name }<tspan fill={line.color}>】</tspan>
+                  </text>
+                ) }
+              </Fragment>
             );
           }) }
         </g>

@@ -1,7 +1,7 @@
 "use client"
 
 import { Fragment, useRef, useState } from "react";
-import RouteMapSVG, { height, width } from "./RouteMapSVG";
+import RouteMapSVG, { height, width, sizeMultiplier, offset } from "./RouteMapSVG";
 
 export default function RouteMap() {
   const viewport = useRef<HTMLDivElement>(null)
@@ -19,6 +19,11 @@ export default function RouteMap() {
     x: 0, 
     y: 0,
     zoom: 1,
+  })
+
+  const [cursorPosition, setCursorPosition] = useState({
+    x: 0,
+    y: 0,
   })
 
   const clampPosition = (x: number, y: number, zoom: number) => {
@@ -77,6 +82,27 @@ export default function RouteMap() {
   }
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const viewportElement = viewport.current
+
+    if (viewportElement) {
+      const svg = viewportElement.querySelector("svg")
+      if (!svg) return
+
+      const point = svg.createSVGPoint()
+      point.x = event.clientX
+      point.y = event.clientY
+
+      const matrix = svg.getScreenCTM()
+      if (!matrix) return
+
+      const svgPoint = point.matrixTransform(matrix.inverse())
+
+      setCursorPosition({
+        x: Math.round(svgPoint.x / sizeMultiplier),
+        y: Math.round(svgPoint.y / sizeMultiplier),
+      })
+    }
+
     if (event.pointerId !== drag.current.pointerId) return
 
     const deltaX = event.clientX - drag.current.startX
@@ -84,7 +110,6 @@ export default function RouteMap() {
     if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
       if (!drag.current.moved) {
         drag.current.moved = true
-        const viewportElement = viewport.current
         if (viewportElement && !viewportElement.hasPointerCapture(event.pointerId)) {
           viewportElement.setPointerCapture(event.pointerId)
         }
@@ -143,6 +168,17 @@ export default function RouteMap() {
       <div
         className="absolute inset-0 flex justify-center items-center"
       >
+        <div className="absolute top-0 pointer-events-none z-16 w-full flex justify-center">
+          <div className="px-2 py-1 bg-black/80 text-white text-center">
+            <div>
+              X: {Math.round(cursorPosition.x)} Y: {Math.round(cursorPosition.y)}
+            </div>
+            <div className="text-xs opacity-80">
+              {Math.round(cursorPosition.x * sizeMultiplier)} {Math.round(cursorPosition.y * sizeMultiplier)}
+            </div>
+          </div>
+        </div>
+
         <RouteMapSVG
           style={{
             transform: `translate(calc(${position.x}px), calc(${position.y}px)) scale(${position.zoom})`,
