@@ -1,4 +1,4 @@
-import { stations, lines, type Line } from "@/data/stations";
+import { stations, lines, stationAppearance, type Line } from "@/data/stations";
 import { cn } from '@/lib/utils'
 import Link from "next/link";
 import { CSSProperties } from "react";
@@ -7,9 +7,9 @@ interface MapLine extends Line {
   points: string;
 }
 
-const sizeMultiplier = .5;
-const offset = [200, 0]
-export const width = 2048
+const sizeMultiplier = .64;
+const offset = [-200, -320]
+export const width = 1000
 export const height = 1500
 
 export default function RouteMapSVG({
@@ -18,7 +18,7 @@ export default function RouteMapSVG({
   style?: CSSProperties,
 }) {
   const mapLines: MapLine[] = lines.map(line => {
-    const lineStations = line.stationIds.map(stationId => stations.find(station => station.stationNumber.includes(stationId)))
+    const lineStations = line.stationNumbers.map(stationId => stations.find(station => station.stationNumber.includes(stationId)))
     
     return {
       ...line,
@@ -30,10 +30,11 @@ export default function RouteMapSVG({
     <svg
       xmlns="http://www.w3.org/2000/svg" 
       width={width} height={height}
+      viewBox={`${offset[0]} ${offset[1]} ${width} ${height}`}
       style={style}
       // className="border border-amber-300"
     >
-      <g transform={`translate(${offset.join(' ')})`}>
+      <g>
         <g className="lines">
           { mapLines.map(line => {
             return (
@@ -44,18 +45,30 @@ export default function RouteMapSVG({
                 stroke={line.color}
                 fill="transparent"
                 strokeLinecap="round"
+                strokeLinejoin="round"
               />
             );
           }) }
         </g>
         <g className="stations">
           { stations.map(station => {
+            const appearance = stationAppearance.find(s => s.id === station.id);
+
             const content = (
               <g 
                 transform={`translate(${station.position[0] * sizeMultiplier} ${station.position[1] * sizeMultiplier})`}
               >
                 <circle r={4} fill="#fafcff" className="group-hover:fill-[#80b0ff]" /* stroke="#256cfa" */ />
-                <text x={10} y={-7} fill="var(--foreground)" fontWeight={500} className="group-hover:fill-[#256fe6]">{ station.name }</text>
+                <g 
+                  transform={`translate(${appearance?.label?.offsetX ?? 10} ${appearance?.label?.offsetY ?? -7})`}
+                >
+                  <text
+                    fill="var(--foreground)" 
+                    fontWeight={500} 
+                    className="group-hover:fill-[#256fe6]"
+                    transform={`rotate(${appearance?.label?.rotation ?? 0})`}
+                  >{ station.name }</text>
+                </g>
               </g>
             )
 

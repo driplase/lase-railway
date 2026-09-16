@@ -32,8 +32,8 @@ const mPlus1Code = M_PLUS_1_Code({
 });
 
 export const metadata: Metadata = {
-  title: "どろぷす急行電鉄",
-  description: "どろぷす急行電鉄のウェブサイトです。",
+  title: "どろぷす鉄道",
+  description: "どろぷす鉄道のウェブサイトです。",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Link href="/">
             <Image
               src={LogoImage}
-              alt="どろぷす急行電鉄"
+              alt="どろぷす鉄道"
               height={48}
               loading="eager"
             />
