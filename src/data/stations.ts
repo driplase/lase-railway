@@ -76,8 +76,8 @@ export const lines: Line[] = [
     appearance: {
       label: {
         enabled: true,
-        x: -10,
-        y: 190,
+        x: 20,
+        y: 300,
       }
     }
   },
@@ -93,8 +93,8 @@ export const lines: Line[] = [
     appearance: {
       label: {
         enabled: true,
-        x: 200,
-        y: 950,
+        x: 240,
+        y: 1400,
       }
     }
   },
@@ -113,7 +113,7 @@ export const lines: Line[] = [
       label: {
         enabled: true,
         x: -140,
-        y: -160,
+        y: -280,
       }
     }
   },
@@ -139,7 +139,7 @@ export const lines: Line[] = [
       label: {
         enabled: true,
         x: -45,
-        y: 90,
+        y: 150,
       }
     }
   },
@@ -160,8 +160,8 @@ export const lines: Line[] = [
     appearance: {
       label: {
         enabled: true,
-        x: -480,
-        y: 400,
+        x: -540,
+        y: 600,
       }
     }
   },
@@ -181,8 +181,8 @@ export const lines: Line[] = [
     appearance: {
       label: {
         enabled: true,
-        x: -80,
-        y: 320,
+        x: -100,
+        y: 450,
       }
     }
   },

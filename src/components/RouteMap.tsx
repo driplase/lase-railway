@@ -173,9 +173,6 @@ export default function RouteMap() {
             <div>
               X: {Math.round(cursorPosition.x)} Y: {Math.round(cursorPosition.y)}
             </div>
-            <div className="text-xs opacity-80">
-              {Math.round(cursorPosition.x * sizeMultiplier)} {Math.round(cursorPosition.y * sizeMultiplier)}
-            </div>
           </div>
         </div>
 

@@ -84,8 +84,8 @@ export default function RouteMapSVG({
 
                 { line.appearance?.label?.enabled && (
                   <text
-                    x={line.appearance?.label.x}
-                    y={line.appearance?.label.y}
+                    x={line.appearance?.label.x * sizeMultiplier}
+                    y={line.appearance?.label.y * sizeMultiplier}
                     fontWeight={600}
                     fontSize={20}
                   >
