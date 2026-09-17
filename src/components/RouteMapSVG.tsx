@@ -8,8 +8,8 @@ interface MapLine extends Line {
 }
 
 export const sizeMultiplier = .64;
-export const offset = [-1000, -320]
-export const width = 1800
+export const offset = [-1500, -320]
+export const width = 2400
 export const height = 1500
 
 export default function RouteMapSVG({

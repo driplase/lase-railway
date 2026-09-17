@@ -61,6 +61,7 @@ export const stations: Station[] = [
   { id: "kiri-gaoka", stationNumber: ["DS06"], name: "霧が丘", nameRomanized: "Kiri-gaoka", position: [-933, 687] },
   { id: "morizono", stationNumber: ["DS07"], name: "森園", nameRomanized: "Morizono", position: [-1165, 751] },
   { id: "takabayashi", stationNumber: ["DS08"], name: "高林", nameRomanized: "Takabayashi", position: [-1420, 868] },
+  { id: "ebishi", stationNumber: ["DS09"], name: "海老市", nameRomanized: "Ebishi", position: [-1668, 875] },
 ]
 
 export const lines: Line[] = [
@@ -156,6 +157,7 @@ export const lines: Line[] = [
       "DS06",
       "DS07",
       "DS08",
+      "DS09",
     ],
     appearance: {
       label: {
